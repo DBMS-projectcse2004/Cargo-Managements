@@ -1,0 +1,37 @@
+database = [
+    {
+        firstnaem : "lokesh",
+        lastname : "kumar",
+        email : "lokesh960077152@gmail.com",
+        password:"******",
+        orders : [
+            {
+                //    order details here
+            },
+            {
+
+            },
+            {
+                
+            },
+        ]
+    },
+    {
+        // data for customer 2
+        firstnaem : "lokesh",
+        lastname : "kumar",
+        email : "lokesh960077152@gmail.com",
+        password:"******",
+        orders : [
+            {
+                //    order details here
+            },
+            {
+
+            },
+            {
+                
+            },
+        ]
+    },
+]

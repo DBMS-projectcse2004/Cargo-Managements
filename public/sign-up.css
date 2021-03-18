@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+.bg{
+    z-index: -1;
+    background-image: linear-gradient(to right bottom,#ff9966,#ff5e62) ;
+    height:95vh;
+  }
+  body{
+      padding:20px;
+  }
+  .main{
+      z-index: 0;
+      height: 95vh;
+  }
+
+  .form-div{
+      height:450px;
+      width : 400px;
+      background-color: azure;
+      border-radius: 15px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: bold;
+      
+  }
+  .form-div:hover{
+    -webkit-box-shadow: -1px 15px 39px -23px rgba(0,0,0,1);
+    -moz-box-shadow: -1px 15px 39px -23px rgba(0,0,0,1);
+    box-shadow: -1px 15px 39px -23px rgba(0,0,0,1);
+  }
+  
+  .fd{
+      border-radius: 25px;
+  }
+  .btn-default{
+      background-image:linear-gradient(to left bottom,#ff9966,#ff5e62) !important;
+      width: 120px;
+      height: 50px;
+    
+  }
+  .btn.btn-square{
+      border-radius: 25px;
+      width: 100%;
+  }
+  
