@@ -52,6 +52,19 @@ app.post("/sign-up",(req,res)=>{
 
 });
 
+app.post("/sign-in",(req,res)=>{
+    customers.findOne({"email":req.body.semail},(err,save)=>{
+        if(err){
+            console.log(err);
+        }else{
+            if(save.password == req.body.spassword){
+                console.log("account found");
+                console.log(save);
+            }
+        }
+    })
+});
+
 
 app.listen(3000,(req,res)=>{
     console.log("server is running");
