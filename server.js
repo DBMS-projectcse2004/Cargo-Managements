@@ -1,6 +1,6 @@
 //KINDLY IGNORE THE COMMENTED PART (DONT DELETE EM IVE KEPT THEM FOR REFERENCE)
 //DBMS-PROJECT
-//TOPIC : CARGO - MANAGEMENT
+//TOPIC : CARGO MANAGEMENT SYSTEM 
 
 const express = require("express")
 const app = express();
@@ -52,12 +52,14 @@ app.post("/sign-up",(req,res)=>{
 
 });
 
+//AUTHENTICATION MODULE CODES 
+
 app.post("/sign-in",(req,res)=>{
-    customers.findOne({"email":req.body.semail},(err,save)=>{
+    customers.findOne({"email":req.body.semail},(err,save)=>{   //CHECKS THE DB WHETHER EMAIL IS FOUND OR NOT 
         if(err){
             console.log(err);
         }else{
-            if(save.password == req.body.spassword){
+            if(save.password == req.body.spassword){   //IF EMAIL IS FOUND THEN CHECK THE PASSWORD IN THE DB TO THE PASSWORD ENTERED BY THE USER IN THE SIGN IN PAGE
                 console.log("account found");
                 console.log(save);
             }
