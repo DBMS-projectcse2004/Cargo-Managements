@@ -20,7 +20,9 @@ app.use(express.static(__dirname+"/public"));
 app.get("/sign-up",(req,res)=>{
     res.sendFile(__dirname + "/sign-up.html");
 });
-
+app.get("/sign-in" ,(req,res)=>{
+    res.sendFile(__dirname+"/sign-in.html");
+})
 app.post("/sign-up",(req,res)=>{
     // generation of accounts and adds to customer collection in database 
 //    if(req.body.password == req.body.retypePassword){
