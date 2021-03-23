@@ -1,12 +1,25 @@
 var mongoose = require("mongoose");
 var schema = mongoose.Schema;
-
+mongoose.set('useCreateIndex', true);
 var customerSchema = new schema({
-    firstname : String,
+    firstname : {
+        type:String,
+        required:true
+    },
+
     lastname: String,
-    email : String,
+
+    email :{
+        type:String,
+        unique:true,
+        required:true
+    },
+
     password: String,
-    orders:[]
+
+    orders:{
+        
+    }
 });
 
 module.exports = mongoose.model("customer",customerSchema);

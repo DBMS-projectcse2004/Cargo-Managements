@@ -5,8 +5,10 @@
 const express = require("express")
 const app = express();
 const mongoose = require("mongoose"); 
+
 mongoose.connect("mongodb://localhost:27017/Cargo" , {useNewUrlParser : true , useUnifiedTopology:true});
-var customers = require("./customer")
+mongoose.set('useCreateIndex', true);
+var customers = require("./customer");
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -40,7 +42,10 @@ app.post("/sign-up",(req,res)=>{
            password:req.body.password
        },(err,save)=>{       // callback function to check the error and success details 
            if(err){
-               console.log(err);
+               console.log(err)
+               res.redirect("/sign-up");
+            //    console.log(err.errors.firstname.properties);     //can be used to display modal //for future reference 
+            //    console.log(err.errors.email.properties);
            }else{
                console.log(save);
                res.redirect("/")
@@ -93,16 +98,5 @@ app.listen(3000,(req,res)=>{
 //     card_owner: String
 // });
 
-//REGISTRATION MODULE SCHEMA 
-// var customerSchema = new mongoose.Schema({
-//     firstname : String,
-//     lastname: String,
-//     email : String,
-//     password: String,
-//     orders:[
-
-//     ]
-// });
-// var customers = mongoose.model("customer",customerSchema);
 
 //end of the db schema initialisation section 
