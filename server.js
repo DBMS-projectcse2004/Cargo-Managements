@@ -6,6 +6,7 @@ const express = require("express")
 const app = express();
 const mongoose = require("mongoose"); 
 mongoose.connect("mongodb://localhost:27017/Cargo" , {useNewUrlParser : true , useUnifiedTopology:true});
+var customers = require("./customer")
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -76,30 +77,32 @@ app.listen(3000,(req,res)=>{
 
 
 //database section (only the schemas initialisation)
-var orderSchema = new mongoose.Schema({
-    pro_name : String,
-    weight: Number,
-    pro_cost:Number,
-    Made_in:String,
-    ship_amt : Number, //will be set default for all orders 
-    address: String,
-    transactions_det:[]
-});
-var transactions = new mongoose.Schema({
-    cardnum : String,
-    exp_date: String,
-    cv_code : Number,
-    card_owner: String
-});
+// var orderSchema = new mongoose.Schema({
+//     pro_name : String,
+//     weight: Number,
+//     pro_cost:Number,
+//     Made_in:String,
+//     ship_amt : Number, //will be set default for all orders 
+//     address: String,
+//     transactions_det:[]
+// });
+// var transactions = new mongoose.Schema({
+//     cardnum : String,
+//     exp_date: String,
+//     cv_code : Number,
+//     card_owner: String
+// });
 
 //REGISTRATION MODULE SCHEMA 
-var customerSchema = new mongoose.Schema({
-    firstname : String,
-    lastname: String,
-    email : String,
-    password: String,
-    orders:[]
-});
-var customers = mongoose.model("customer",customerSchema);
+// var customerSchema = new mongoose.Schema({
+//     firstname : String,
+//     lastname: String,
+//     email : String,
+//     password: String,
+//     orders:[
+
+//     ]
+// });
+// var customers = mongoose.model("customer",customerSchema);
 
 //end of the db schema initialisation section 
