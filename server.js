@@ -5,11 +5,12 @@
 const express = require("express")
 const app = express();
 const mongoose = require("mongoose"); 
-
+var ejs = require("ejs")
 mongoose.connect("mongodb://localhost:27017/Cargo" , {useNewUrlParser : true , useUnifiedTopology:true});
 mongoose.set('useCreateIndex', true);
 var customers = require("./customer");
 var bodyParser = require("body-parser");
+app.set('view engine',"ejs");
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -66,20 +67,28 @@ app.post("/sign-in",(req,res)=>{
             console.log(err);
         }else{
             if(save.password == req.body.spassword){   //IF EMAIL IS FOUND THEN CHECK THE PASSWORD IN THE DB TO THE PASSWORD ENTERED BY THE USER IN THE SIGN IN PAGE
-                console.log("account found");
-                console.log(save);
+                customers.findOne({email:req.body.semail},(err,user)=>{
+                    res.render("order",{user:user})
+                })
             }
         }
     })
 });
 
+app.post("/enter-order",(req,res)=>{
+    customers.findById(req.body.id,(err,savex)=>{
+        if(err){
+            console.log(err);
+        }else{
+            console.log(savex);
+        }
+    });
+});
 
 app.listen(3000,(req,res)=>{
     console.log("server is running");
     
 });
-
-
 
 //database section (only the schemas initialisation)
 // var orderSchema = new mongoose.Schema({
