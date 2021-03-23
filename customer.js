@@ -1,7 +1,8 @@
 var mongoose = require("mongoose");
-var schema = mongoose.Schema;
+var Schema = mongoose.Schema;
 mongoose.set('useCreateIndex', true);
-var customerSchema = new schema({
+var orders = require('./order').schema
+var customerSchema = new Schema({
     firstname : {
         type:String,
         required:true
@@ -14,12 +15,8 @@ var customerSchema = new schema({
         unique:true,
         required:true
     },
-
     password: String,
-
-    orders:{
-        
-    }
+    orders:[orders]
 });
 
 module.exports = mongoose.model("customer",customerSchema);

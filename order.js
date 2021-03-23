@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
-var schema = mongoose.Schema ;
-
-const OrderSchema = new schema({
+var Schema = mongoose.Schema ; 
+var transactions = require("./transaction").schema
+const OrderSchema = new Schema({
     cargo_destination:{
-        type:String.apply,
+        type:String,
         required:true
     },
     cargo_price:{
@@ -16,5 +16,8 @@ const OrderSchema = new schema({
     },
     cargo_desc:{
         type:String
-    }
-})
+    },
+    transaction_Details:transactions
+});
+
+module.exports = mongoose.model("orders", OrderSchema);
