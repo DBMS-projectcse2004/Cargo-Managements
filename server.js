@@ -9,7 +9,14 @@ var ejs = require("ejs")
 mongoose.connect("mongodb://localhost:27017/Cargo" , {useNewUrlParser : true , useUnifiedTopology:true});
 mongoose.set('useCreateIndex', true);
 var customers = require("./customer");
+var orders = require("./order")
 var bodyParser = require("body-parser");
+
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 app.set('view engine',"ejs");
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -62,13 +69,22 @@ app.post("/sign-up",(req,res)=>{
 //AUTHENTICATION MODULE CODES 
 
 app.post("/sign-in",(req,res)=>{
-    customers.findOne({"email":req.body.semail},(err,save)=>{   //CHECKS THE DB WHETHER EMAIL IS FOUND OR NOT 
+    customers.findOne({"email":req.body.semail},(err,save)=>{                                          //CHECKS THE DB WHETHER EMAIL IS FOUND OR NOT 
         if(err){
             console.log(err);
         }else{
             if(save.password == req.body.spassword){   //IF EMAIL IS FOUND THEN CHECK THE PASSWORD IN THE DB TO THE PASSWORD ENTERED BY THE USER IN THE SIGN IN PAGE
                 customers.findOne({email:req.body.semail},(err,user)=>{
-                    res.render("order",{user:user})
+                    app.get("/enter-order",(req,res)=>{
+                        if(err){
+                            console.log(err);
+                        }else{
+                            const idx = user._id;
+                            res.render("order",{user:user})
+                           
+                        }
+                    });
+                    res.redirect("/enter-order");
                 })
             }
         }
@@ -77,35 +93,34 @@ app.post("/sign-in",(req,res)=>{
 
 app.post("/enter-order",(req,res)=>{
     customers.findById(req.body.id,(err,savex)=>{
-        if(err){
+        if(err)
+        {
             console.log(err);
         }else{
-            console.log(savex);
+            orders.create({
+              cargo_destination:req.body.destination,
+              cargo_desc:req.body.desc
+            },(err,save)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    customers.findByIdAndUpdate(req.body.id,{"$push":{orders:save._id}},(err,savey)=>{
+                        if(err){
+                            console.log(err);
+                        }else{
+                            console.log(savey);
+                            res.redirect("/enter-order");
+                        }
+                    })
+                }
+            })
         }
     });
 });
-
+app.get("/my-orders",(req,res)=>{
+    console.log(idx);
+})
 app.listen(3000,(req,res)=>{
     console.log("server is running");
     
 });
-
-//database section (only the schemas initialisation)
-// var orderSchema = new mongoose.Schema({
-//     pro_name : String,
-//     weight: Number,
-//     pro_cost:Number,
-//     Made_in:String,
-//     ship_amt : Number, //will be set default for all orders 
-//     address: String,
-//     transactions_det:[]
-// });
-// var transactions = new mongoose.Schema({
-//     cardnum : String,
-//     exp_date: String,
-//     cv_code : Number,
-//     card_owner: String
-// });
-
-
-//end of the db schema initialisation section 

@@ -16,7 +16,7 @@ var customerSchema = new Schema({
         required:true
     },
     password: String,
-    orders:[orders]
+    orders:[{ type: Schema.Types.ObjectId, ref: 'orders' }]
 });
 
 module.exports = mongoose.model("customer",customerSchema);
