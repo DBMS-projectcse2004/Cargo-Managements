@@ -89,11 +89,11 @@ app.post("/sign-in",(req,res)=>{
                                         console.log(err);
                                     }else{
                                         console.log(save.orders);
-                                        orders.find({'_id': { $in:save.orders}},(err,orderx)=>{
+                                        orders.find({'_id': { $in:save.orders}},(err,myorders)=>{
                                             if(err){
                                                 console.log(err);
                                             }else{
-                                                console.log(orderx);
+                                                res.render("myorders",{myorders:myorders});
                                             }
                                         });
                                     }
