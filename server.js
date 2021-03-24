@@ -11,6 +11,7 @@ mongoose.set('useCreateIndex', true);
 var customers = require("./customer");
 var orders = require("./order")
 var bodyParser = require("body-parser");
+const customer = require("./customer");
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -81,6 +82,23 @@ app.post("/sign-in",(req,res)=>{
                         }else{
                             const idx = user._id;
                             res.render("order",{user:user})
+
+                            app.get("/my-order",(req, res)=>{
+                                customers.findById(idx,(err,save)=>{
+                                    if(err){
+                                        console.log(err);
+                                    }else{
+                                        console.log(save.orders);
+                                        orders.find({'_id': { $in:save.orders}},(err,orderx)=>{
+                                            if(err){
+                                                console.log(err);
+                                            }else{
+                                                console.log(orderx);
+                                            }
+                                        });
+                                    }
+                                })
+                            });
                            
                         }
                     });
@@ -88,7 +106,8 @@ app.post("/sign-in",(req,res)=>{
                 })
             }
         }
-    })
+    });
+
 });
 
 app.post("/enter-order",(req,res)=>{
@@ -116,10 +135,11 @@ app.post("/enter-order",(req,res)=>{
             })
         }
     });
+
+    
 });
-app.get("/my-orders",(req,res)=>{
-    console.log(idx);
-})
+
+
 app.listen(3000,(req,res)=>{
     console.log("server is running");
     
