@@ -1,17 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello world</h1>
-    <form method="POST" action="/sign-in">
-   <input type="email" placeholder="email" name="semail">
-   <input type="password" placeholder="password" name="spassword">
-   <button type="submit">Submit</button>
-    </form>
-</body>
+<html>
+  <head>
+    <title>Sign-in</title>
+    <link rel="stylesheet" type="text/css" href="sign-in.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <img class="wave" src="img/wave.png" />
+    <div class="container">
+      <div class="img">
+        <img src="img/undraw_Container_ship_ok1c.svg" />
+      </div>
+      <div class="login-content">
+        <form method="POST" action="/sign-in">
+          <img src="img/avatar.svg" />
+          <h2 class="title">Sign-in</h2>
+          <div class="input-div one">
+            <div class="i">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="div">
+              <h5>Email</h5>
+              <input type="email" class="input" name="semail" />
+            </div>
+          </div>
+          <div class="input-div pass">
+            <div class="i">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div class="div">
+              <h5>Password</h5>
+              <input type="password" class="input" name="spassword" />
+            </div>
+          </div>
+          <a href="sign-up">Create an account</a>
+          <input type="submit" class="btn" />
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
 </html>

@@ -1,22 +1,22 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-mongoose.set('useCreateIndex', true);
-var orders = require('./order').schema
+mongoose.set("useCreateIndex", true);
+var orders = require("./order").schema;
 var customerSchema = new Schema({
-    firstname : {
-        type:String,
-        required:true
-    },
+  firstname: {
+    type: String,
+    required: true,
+  },
 
-    lastname: String,
+  lastname: String,
 
-    email :{
-        type:String,
-        unique:true,
-        required:true
-    },
-    password: String,
-    orders:[{ type: Schema.Types.ObjectId, ref: 'orders' }]
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: String,
+  orders: [{ type: Schema.Types.ObjectId, ref: "orders" }],
 });
 
-module.exports = mongoose.model("customer",customerSchema);
+module.exports = mongoose.model("customer", customerSchema);
