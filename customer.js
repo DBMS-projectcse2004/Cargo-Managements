@@ -7,9 +7,7 @@ var customerSchema = new Schema({
     type: String,
     required: true,
   },
-
   lastname: String,
-
   email: {
     type: String,
     unique: true,

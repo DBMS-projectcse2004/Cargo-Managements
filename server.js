@@ -5,6 +5,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 var ejs = require("ejs");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 mongoose.connect("mongodb://localhost:27017/Cargo", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -44,7 +46,6 @@ app.post("/sign-up", (req, res) => {
     // generation of accounts and adds to customer collection in database
     // checks if the entered password and retyped password is correct or not if correct
     //the firstname,lastname,email,password is stored in the database
-
     if (req.body.password == req.body.retypePassword) {
         customers.create({
                 firstname: req.body.firstname,
@@ -57,8 +58,9 @@ app.post("/sign-up", (req, res) => {
                 if (err) {
                     console.log(err);
                     res.redirect("/sign-up");
-                    //    console.log(err.errors.firstname.properties);     //can be used to display modal //for future reference
-                    //    console.log(err.errors.email.properties);
+                    //    console.log(err.errors.firstname.properties);     
+                    //    can be used to display modal //for future reference
+                       console.log(err.errors);
                 } else {
                     console.log(save);
                     res.redirect("/");
@@ -76,12 +78,20 @@ app.post("/sign-up", (req, res) => {
 app.post("/sign-in", (req, res) => {
     customers.findOne({
         email: req.body.semail
-    }, (err, save) => {
-        //CHECKS THE DB WHETHER EMAIL IS FOUND OR NOT
+    }, (err, save) => {                  //CHECKS THE DB WHETHER EMAIL IS FOUND OR NOT
         if (err) {
             console.log(err);
-        } else {
-            if (save.password == req.body.spassword) {
+        } 
+        else {
+            if(save==null){
+               app.get("/error-mail-not-found",(req, res) => {
+                   //add the mail not found page here
+               });
+               console.log("mail not found");
+            }
+            else if (save.password == req.body.spassword) 
+            {
+                
                 //IF EMAIL IS FOUND THEN CHECK THE PASSWORD IN THE DB TO THE PASSWORD ENTERED BY THE USER IN THE SIGN IN PAGE
                 customers.findOne({
                     email: req.body.semail
@@ -95,7 +105,7 @@ app.post("/sign-in", (req, res) => {
                                 user: user
                             });
 
-                            app.get("/my-order", (req, res) => {
+                     app.get("/my-order", (req, res) => {
                                 customers.findById(idx, (err, save) => {
                                     if (err) {
                                         console.log(err);
@@ -123,6 +133,9 @@ app.post("/sign-in", (req, res) => {
                     });
                     res.redirect("/enter-order");
                 });
+            
+            }else{
+                console.log("entered password is wrong");
             }
         }
     });
@@ -162,6 +175,9 @@ app.post("/enter-order", (req, res) => {
         }
     });
 });
+app.get("/user",(req,res)=>{
+    res.render("user");
+})
 
 app.listen(3000, (req, res) => {
     console.log("server is running");

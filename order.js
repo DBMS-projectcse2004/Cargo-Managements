@@ -17,7 +17,11 @@ const OrderSchema = new Schema({
     cargo_desc:{
         type:String
     },
-    transaction_Details:transactions
+    transaction_Details:transactions,
+    order_date:{
+        type:Date,
+        default:Date.now
+    }
 });
 
 module.exports = mongoose.model("orders", OrderSchema);
