@@ -49,10 +49,10 @@ app.post("/sign-up", (req, res) => {
   if (req.body.password == req.body.retypePassword) {
     customers.create(
       {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password,
+        // firstname: req.body.firstname,
+        // lastname: req.body.lastname,
+        // email: req.body.email,
+        // password: req.body.password,
       },
       (err, save) => {
         // callback function to check the error and success details
